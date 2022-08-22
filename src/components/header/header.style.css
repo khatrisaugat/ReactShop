@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 80px;
+  background-color: #f1efef;
+}
+.header a {
+  color: #000;
+  text-decoration: none;
+}
+.header .logo-text {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+  text-transform: uppercase;
+}
+.header .nav-links {
+  width: 80%;
+  display: flex;
+  justify-content: right;
+}
+.header .nav-links a {
+  color: #000;
+  text-decoration: none;
+  font-size: larger;
+  padding: 5px 20px;
+  margin: auto 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}/*# sourceMappingURL=header.style.css.map */

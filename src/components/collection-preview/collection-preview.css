@@ -1,0 +1,15 @@
+.collection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 80px;
+}
+.collection .title {
+  text-align: center;
+  font-size: 28px;
+}
+.collection .preview {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}/*# sourceMappingURL=collection-preview.css.map */

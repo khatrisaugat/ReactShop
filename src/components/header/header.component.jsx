@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./header.style.css";
+import { auth } from "./../../firebase/firebase.utils";
 
-function Header() {
+function Header({ currentUser }) {
   return (
     <div className="header">
       <div className="nav-brand">
@@ -11,8 +12,21 @@ function Header() {
         </Link>
       </div>
       <div className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/shop">Shop</Link>
+        <Link className="links" to="/">
+          Home
+        </Link>
+        <Link className="links" to="/shop">
+          Shop
+        </Link>
+        {currentUser == null ? (
+          <Link className="links" to="/sign-in">
+            Sign In
+          </Link>
+        ) : (
+          <div className="links" onClick={() => auth.signOut()}>
+            Sign Out
+          </div>
+        )}
       </div>
     </div>
   );

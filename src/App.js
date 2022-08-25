@@ -28,7 +28,6 @@ class App extends React.Component {
       } else {
         this.setState({ currentUser: user });
       }
-      // this.setState({ currentUser: user });
     });
   }
 

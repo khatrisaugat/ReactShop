@@ -3,6 +3,7 @@ import FormInput from "./../form-input/form-input.component";
 import "./sign-in.style.css";
 import CustomButton from "./../custom-button/custom-button.component";
 import { auth, signInWithGoogle } from "./../../firebase/firebase.utils";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export class SignIn extends Component {
   constructor(props) {
@@ -18,7 +19,15 @@ export class SignIn extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleSignIn(this.state);
+    const { email, password } = this.state;
+    try {
+      // auth.signInWithEmailAndPassword(email, password);
+      signInWithEmailAndPassword(auth, email, password).then(() => {
+        this.setState({ email: "", password: "" });
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   render() {
     return (

@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import "./header.style.css";
 import { auth } from "./../../firebase/firebase.utils";
 import { connect } from "react-redux";
+import CartIcon from "./../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-function Header({ currentUser }) {
+function Header({ currentUser, hidden }) {
   return (
     <div className="header">
       <div className="nav-brand">
@@ -28,12 +30,15 @@ function Header({ currentUser }) {
             Sign Out
           </div>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 }
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);

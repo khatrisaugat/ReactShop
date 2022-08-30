@@ -23,4 +23,15 @@ button:hover {
 .google-sign-in:hover {
   background-color: #fff;
   color: #4285f4;
+}
+
+.inverted {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+.inverted:hover {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
 }/*# sourceMappingURL=custom-button.style.css.map */

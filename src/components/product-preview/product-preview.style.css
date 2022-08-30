@@ -15,26 +15,15 @@
   align-items: flex-end;
 }
 .product-preview .product-preview__image button {
-  position: relative;
-  width: 80%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  margin-bottom: 15px;
-  padding: 20px 15px;
-  border: none;
-  opacity: 0.85;
   display: none;
-  font-size: larger;
-  text-transform: uppercase;
+}
+.product-preview .product-preview__image:hover {
+  opacity: 0.85;
 }
 .product-preview .product-preview__image:hover button {
   display: block;
   cursor: pointer;
-}
-.product-preview .product-preview__image:hover button:hover {
-  background-color: #000;
-  color: #fff;
+  opacity: 1;
 }
 .product-preview .product-preview__info {
   height: 10%;

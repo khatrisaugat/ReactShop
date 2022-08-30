@@ -1,6 +1,6 @@
 import "./App.css";
 import Homepage from "./pages/homepage/homepage.component";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Shop from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
@@ -28,13 +28,11 @@ class App extends React.Component {
           // this.setState({
           //   currentUser: { id: snapShot.id, ...snapShot.data() },
           // })
-          setCurrentUser({
-            currentUser: { id: snapShot.id, ...snapShot.data() },
-          })
+          setCurrentUser({ id: snapShot.id, ...snapShot.data() })
         );
       } else {
         // this.setState({ currentUser: user });
-        setCurrentUser({ currentUser: user });
+        setCurrentUser(user);
       }
     });
   }
@@ -44,19 +42,26 @@ class App extends React.Component {
   }
 
   render() {
+    const { currentUser } = this.props;
     return (
       <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/sign-in" element={<SignInSignUp />} />
+          <Route
+            path="/sign-in"
+            element={currentUser ? <Navigate to="/" /> : <SignInSignUp />}
+          />
         </Routes>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

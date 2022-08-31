@@ -1,0 +1,60 @@
+.checkout-item {
+  width: 100%;
+  display: flex;
+  min-height: 100px;
+  border-bottom: 1px solid darkgrey;
+  padding: 15px 0;
+  font-size: 20px;
+  align-items: center;
+}
+.checkout-item .image-container {
+  width: 23%;
+  padding-right: 15px;
+}
+.checkout-item .image-container img {
+  width: 100%;
+  height: 100%;
+}
+.checkout-item .name,
+.checkout-item .quantity,
+.checkout-item .price {
+  width: 23%;
+}
+.checkout-item .quantity {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  padding-left: 20px;
+}
+.checkout-item .quantity .value {
+  margin: 0 10px;
+}
+.checkout-item .arrow {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #6c757d;
+  border-radius: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkout-item .arrow:hover {
+  background-color: #6c757d;
+  color: #34b3f1;
+}
+.checkout-item .remove-button {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #6c757d;
+  border-radius: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.checkout-item .remove-button:hover {
+  background-color: #6c757d;
+  color: #d61c4e;
+}/*# sourceMappingURL=checkout-item.style.css.map */

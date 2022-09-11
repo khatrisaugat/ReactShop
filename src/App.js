@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import { createStructuredSelector } from "reselect";
-
+import CategoryPreview from "./components/category-preview/category-preview.component";
 class App extends React.Component {
   // constructor() {
   //   super();
@@ -51,7 +51,10 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop">
+            <Route path="" element={<Shop />} />
+            <Route path=":collectionId" element={<CategoryPreview />} />
+          </Route>
           <Route
             path="/sign-in"
             element={currentUser ? <Navigate to="/" /> : <SignInSignUp />}

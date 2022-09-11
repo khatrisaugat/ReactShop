@@ -1,15 +1,33 @@
 .collection {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 20px 80px;
+}
+.collection .heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.collection a {
+  text-decoration: none;
+  color: #000;
+  font-size: larger;
+  font-weight: bold;
+  border-bottom: #000 1px solid;
+  transition: all 0.1s ease-in-out;
+}
+.collection a:hover {
+  color: #074a6c;
+  border: none;
 }
 .collection .title {
   text-align: center;
+  margin: auto;
   font-size: 28px;
 }
 .collection .preview {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }/*# sourceMappingURL=collection-preview.css.map */

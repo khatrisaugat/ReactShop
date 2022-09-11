@@ -9,3 +9,14 @@ export const addItems = (items, itemsToAdd) => {
   }
   return [...items, { ...itemsToAdd, quantity: 1 }];
 };
+export const removeItems = (items, itemToRemove) => {
+  return items
+    .map((item) =>
+      item.id === itemToRemove.id
+        ? item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : null
+        : item
+    )
+    .filter((item) => item !== null);
+};

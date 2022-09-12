@@ -16,10 +16,10 @@ export const Shop = ({ collections }) => {
   return (
     <div className="shop">
       <h1 className="title">Collections</h1>
-      {collections.map(({ id, ...otherCollectionProps }) => (
+      {Object.keys(collections).map((keys) => (
         <CollectionPreview
-          key={id}
-          {...otherCollectionProps}
+          key={collections[keys].id}
+          {...collections[keys]}
           noOfProducts={4}
           linkExists
         />

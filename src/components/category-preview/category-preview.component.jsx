@@ -10,10 +10,10 @@ function CategoryPreview({ collection }) {
   const params = useParams();
   return (
     <div className="category-preview">
-      {collection
-        .filter((collection) => collection.routeName === params.collectionId)
-        .map((collection) => (
-          <CollectionPreview key={collection.id} {...collection} />
+      {Object.keys(collection)
+        .filter((collection) => collection === params.collectionId)
+        .map((key) => (
+          <CollectionPreview key={collection[key].id} {...collection[key]} />
         ))}
     </div>
   );

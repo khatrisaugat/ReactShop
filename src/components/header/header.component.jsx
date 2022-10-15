@@ -1,43 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./header.style.css";
+// import "./header.style.css";
 import { auth } from "./../../firebase/firebase.utils";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import CartIcon from "./../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
+import {
+  HeaderContainer,
+  LogoText,
+  NavLinksContainer,
+  NavLink,
+  DivLink,
+} from "./header.styles";
 
 function Header({ currentUser, hidden }) {
   return (
-    <div className="header">
-      <div className="nav-brand">
+    <HeaderContainer>
+      <div>
         <Link to="/">
-          <h1 className="logo-text">Elegant Shop</h1>
+          <LogoText>Elegant Shop</LogoText>
         </Link>
       </div>
-      <div className="nav-links">
-        <Link className="links" to="/">
-          Home
-        </Link>
-        <Link className="links" to="/shop">
-          Shop
-        </Link>
+      <NavLinksContainer>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/shop">Shop</NavLink>
         {currentUser == null ? (
-          <Link className="links" to="/sign-in">
-            Sign In
-          </Link>
+          <NavLink to="/sign-in">Sign In</NavLink>
         ) : (
-          <div className="links" onClick={() => auth.signOut()}>
-            Sign Out
-          </div>
+          <DivLink onClick={() => auth.signOut()}>Sign Out</DivLink>
         )}
         <CartIcon />
-      </div>
+      </NavLinksContainer>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 }
 //method without createStructuredSelector

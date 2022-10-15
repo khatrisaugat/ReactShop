@@ -1,23 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./menu-items.style.css";
+import {
+  MenuItemsContainer,
+  BackgroundImageContainer,
+  ContentContainer,
+  ContentTitle,
+  ContentSubtitle,
+} from "./menu-items.styles";
 
 function MenuItems({ title, imageUrl, size, linkUrl }) {
   const navigate = useNavigate();
 
   return (
-    <div className={`${size} menu-item`} onClick={() => navigate(linkUrl)}>
-      <div
-        className="background-image"
+    <MenuItemsContainer size={size} onClick={() => navigate(linkUrl)}>
+      <BackgroundImageContainer
         style={{
           backgroundImage: `url(${imageUrl})`,
         }}
-      ></div>
-      <div className="content">
-        <h1 className="title">{title}</h1>
-        <span className="subtitle">SHOP NOW</span>
-      </div>
-    </div>
+      ></BackgroundImageContainer>
+      <ContentContainer>
+        <ContentTitle>{title}</ContentTitle>
+        <ContentSubtitle>SHOP NOW</ContentSubtitle>
+      </ContentContainer>
+    </MenuItemsContainer>
   );
 }
 

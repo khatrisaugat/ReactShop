@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { selectShopCollections } from "../../redux/shop/shop.selectors";
 import { createStructuredSelector } from "reselect";
 import CollectionPreview from "../../components/collection-preview/collection-preview.component";
-import "./shop.style.css";
-import { Link } from "react-router-dom";
+// import "./shop.style.css";
+import { ShopPageContainer, ShopPageTitle } from "./shop.styles";
 export const Shop = ({ collections }) => {
   // constructor(props) {
   //   super(props);
@@ -14,8 +14,8 @@ export const Shop = ({ collections }) => {
   // }
 
   return (
-    <div className="shop">
-      <h1 className="title">Collections</h1>
+    <ShopPageContainer>
+      <ShopPageTitle>Collections</ShopPageTitle>
       {Object.keys(collections).map((keys) => (
         <CollectionPreview
           key={collections[keys].id}
@@ -24,7 +24,7 @@ export const Shop = ({ collections }) => {
           linkExists
         />
       ))}
-    </div>
+    </ShopPageContainer>
   );
 };
 const mapStateToProps = createStructuredSelector({

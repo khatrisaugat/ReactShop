@@ -1,28 +1,28 @@
 import React from "react";
 import CustomButton from "../custom-button/custom-button.component";
-import "./product-preview.style.css";
+// import "./product-preview.style.css";
 import { connect } from "react-redux";
 import { addItem } from "../../redux/cart/cart.actions";
+import {
+  ProductPreviewContainer,
+  ProductImageContainer,
+  ProductInfoContainer,
+} from "./product-preview.styles";
 
 function ProductPreview({ item, addItem }) {
   const { name, imageUrl, price } = item;
   return (
-    <div className="product-preview">
-      <div
-        className="product-preview__image"
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
-      >
+    <ProductPreviewContainer>
+      <ProductImageContainer imageUrl={imageUrl}>
         <CustomButton inverted onClick={() => addItem(item)}>
           Add to cart
         </CustomButton>
-      </div>
-      <div className="product-preview__info">
+      </ProductImageContainer>
+      <ProductInfoContainer>
         <p>{name}</p>
         <p>${price}</p>
-      </div>
-    </div>
+      </ProductInfoContainer>
+    </ProductPreviewContainer>
   );
 }
 const mapDispatchToProps = (dispatch) => ({

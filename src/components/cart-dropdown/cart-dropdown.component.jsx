@@ -1,5 +1,4 @@
 import React from "react";
-// import "./cart-dropdown.style.css";
 import CustomButton from "../custom-button/custom-button.component";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";

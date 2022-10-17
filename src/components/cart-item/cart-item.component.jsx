@@ -1,5 +1,4 @@
 import React from "react";
-// import "./cart-item.style.css";
 import {
   CartItemContainer,
   CartItemImage,

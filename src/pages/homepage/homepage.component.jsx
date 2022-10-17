@@ -1,5 +1,4 @@
 import React from "react";
-import "./homepage.style.css";
 import DirectoryMenu from "../../components/directory/directory.component";
 import { HomePageContainer } from "./homepage.styles";
 

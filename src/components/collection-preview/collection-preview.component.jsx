@@ -1,7 +1,5 @@
 import React from "react";
 import ProductPreview from "../product-preview/product-preview.component";
-// import "./collection-preview.css";
-// import { Link } from "react-router-dom";
 import {
   CollectionPreviewContainer,
   HeadingContainer,

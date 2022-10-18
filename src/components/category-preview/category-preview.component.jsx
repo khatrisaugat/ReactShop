@@ -5,20 +5,20 @@ import { selectShopCollections } from "../../redux/shop/shop.selectors";
 import { createStructuredSelector } from "reselect";
 import CollectionPreview from "./../collection-preview/collection-preview.component";
 
-function CategoryPreview({ collection }) {
-  //   console.log(collection);
+function CategoryPreview({ collections }) {
+  console.log(collections);
   const params = useParams();
   return (
     <div className="category-preview">
-      {Object.keys(collection)
-        .filter((collection) => collection === params.collectionId)
-        .map((key) => (
-          <CollectionPreview key={collection[key].id} {...collection[key]} />
+      {collections
+        .filter((collections) => collections.routeName === params.collectionId)
+        .map((collection) => (
+          <CollectionPreview key={collection.id} {...collection} />
         ))}
     </div>
   );
 }
 const mapStateToProps = createStructuredSelector({
-  collection: selectShopCollections,
+  collections: selectShopCollections,
 });
 export default connect(mapStateToProps)(CategoryPreview);

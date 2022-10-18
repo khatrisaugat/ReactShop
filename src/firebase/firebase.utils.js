@@ -1,7 +1,16 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup } from "firebase/auth";
-import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  getDoc,
+  getDocs,
+  doc,
+  setDoc,
+  collection,
+  writeBatch,
+  onSnapshot,
+} from "firebase/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,6 +28,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
+
+//insert collection data into firestore
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  // const collectionRef = firestore.collection(collectionKey);
+  const collectionRef = collection(firestore, collectionKey);
+  console.log(collectionRef);
+  const batch = writeBatch(firestore);
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef);
+    batch.set(newDocRef, obj);
+  });
+  return await batch.commit();
+};
 
 //create user profile in firestore
 const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -43,6 +68,38 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   }
   // console.log(snapShot);
   return snapShot;
+};
+
+//get collection data from firestore
+export const convertedCollectionsData = async () => {
+  // const collectionRef = collection(firestore, "collections");
+  // let transformedCollection = (doc) => {
+  //   const { title, items } = doc.data();
+  //   return {
+  //     routeName: encodeURI(title.toLowerCase()),
+  //     id: doc.id,
+  //     title,
+  //     items,
+  //   };
+  // };
+  // onSnapshot(collectionRef, async (snapshot) => {
+  //   // console.log(snapshot.docs.map((doc) => doc.data()));
+  //   transformedCollection = snapshot.docs.map(transformedCollection);
+  //   // console.log(transformedCollection);1qsa
+  // });
+  // // console.log(transformedCollection);
+  // return transformedCollection;
+  const querySnapshot = await getDocs(collection(firestore, "collections"));
+  const transformedCollection = querySnapshot.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  return transformedCollection;
 };
 export { createUserProfileDocument };
 

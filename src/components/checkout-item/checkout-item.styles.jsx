@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 const attributeCss = css`
   width: 23%;
+  font-weight: bold;
 `;
 
 export const CheckoutItemContainer = styled.div`

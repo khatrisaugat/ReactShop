@@ -1,3 +1,4 @@
+//imports
 import "./App.css";
 import Homepage from "./pages/homepage/homepage.component";
 import { Route, Routes, Navigate } from "react-router-dom";
@@ -9,50 +10,47 @@ import Checkout from "./pages/checkoutpage/checkout.component";
 import {
   createUserProfileDocument,
   auth,
-  addCollectionAndDocuments,
+  convertedCollectionsData,
 } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { updateCollections } from "./redux/shop/shop.actions";
 import { createStructuredSelector } from "reselect";
+import { selectShopCollections } from "./redux/shop/shop.selectors";
 import CategoryPreview from "./components/category-preview/category-preview.component";
-// import { selectShopCollections } from "./redux/shop/shop.selectors";
+import { WithSpinner } from "./components/with-spinner/with-spinner.component";
+//spinner for category preview
+const CategoryPreviewWithSpinner = WithSpinner(CategoryPreview);
 class App extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     currentUser: null,
-  //   };
-  // }
-
+  //state
+  state = {
+    isLoading: true,
+  };
+  //unsubcribe declaration
   unSubscribeFromAuth = null;
+  unSubcribeFromSnapshot = null;
 
   componentDidMount() {
-    // const { setCurrentUser, collectionsArray } = this.props;
-    const { setCurrentUser } = this.props;
-
-    // console.log(Object.values(collectionsArray));
+    const { setCurrentUser, updateCollection } = this.props;
+    //authentication listener
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-      // console.log(user);
       if (user) {
         createUserProfileDocument(user).then((snapShot) =>
-          // this.setState({
-          //   currentUser: { id: snapShot.id, ...snapShot.data() },
-          // })
           setCurrentUser({ id: snapShot.id, ...snapShot.data() })
         );
       } else {
-        // this.setState({ currentUser: user });
         setCurrentUser(user);
-        // addCollectionAndDocuments(
-        //   "collections",
-        //   Object.values(collectionsArray).map(({ title, items }) => ({
-        //     title,
-        //     items,
-        //   }))
-        // );
       }
     });
+
+    //collection listener
+    this.unSubcribeFromSnapshot = convertedCollectionsData().then(
+      (collections) => {
+        updateCollection(collections);
+        this.setState({ isLoading: false });
+      }
+    );
   }
 
   componentWillUnmount() {
@@ -60,15 +58,22 @@ class App extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, collections } = this.props;
+    const { isLoading } = this.state;
     return (
       <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/shop">
-            <Route path="" element={<Shop />} />
-            <Route path=":collectionId" element={<CategoryPreview />} />
+            <Route
+              path=""
+              element={<Shop collections={collections} isLoading={isLoading} />}
+            />
+            <Route
+              path=":collectionId"
+              element={<CategoryPreviewWithSpinner isLoading={isLoading} />}
+            />
           </Route>
           <Route
             path="/sign-in"
@@ -80,11 +85,14 @@ class App extends React.Component {
     );
   }
 }
+//mapStateToProps
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  // collectionsArray: selectShopCollections,
+  collections: selectShopCollections,
 });
+//mapDispatchToProps
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  updateCollection: (collections) => dispatch(updateCollections(collections)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);
